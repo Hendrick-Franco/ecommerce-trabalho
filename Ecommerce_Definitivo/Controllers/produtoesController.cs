@@ -17,6 +17,7 @@ namespace Ecommerce_Definitivo.Controllers
         public produtoesController()
         {
             db = new Context();
+            ViewBag.Categorias = db.Categorias;
         }
         // GET: Produtos
         public ActionResult Index()

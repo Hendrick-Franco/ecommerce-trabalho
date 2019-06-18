@@ -1,4 +1,9 @@
-﻿
+﻿@model Ecommerce_Definitivo.Models.Conta
+
+@{
+    ViewBag.Title = "Cadastro";
+}
+
 <!DOCTYPE html>
 
 <html>
@@ -58,8 +63,7 @@
 
                                                     <dl>
                                                         <dd>
-
-                                                            @if (Model.Imagem != null)
+                                                            @if (Models.Imagem != null)
                                                             {
                                                                 var base64 = Convert.ToBase64String(Model.Imagem);
                                                                 var imgSrc = String.Format("data:image/gif;base64,{0}", base64);

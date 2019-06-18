@@ -1,17 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
+using Ecommerce_Definitivo.Models;
 
 namespace Ecommerce_Definitivo.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private Context db = new Context();
+
+        public ActionResult Index(string pesquisa)
         {
-            return View();
+
+            var homeprodutos = db.produto.Where(c => c.vitrine == true).ToList();
+            return View(homeprodutos);
         }
 
         public ActionResult About()

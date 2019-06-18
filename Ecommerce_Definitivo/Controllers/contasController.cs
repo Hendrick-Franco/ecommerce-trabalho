@@ -60,7 +60,9 @@ namespace Ecommerce_Definitivo.Controllers
         // GET: contas/Cadastro
         public ActionResult Cadastro()
         {
+            var modelo = new conta();
             var model = new ContaViewModel();
+            
             return View(model);
          }
 
