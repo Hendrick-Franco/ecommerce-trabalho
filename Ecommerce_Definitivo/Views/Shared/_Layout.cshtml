@@ -1,5 +1,4 @@
 ﻿
-
 @{
     ViewBag.Title = "Cadastro";
 }
@@ -63,17 +62,13 @@
 
                                                     <dl>
                                                         <dd>
-                                                            @if (Model.Imagem != null)
-                                                            {
-                                                                var base64 = Convert.ToBase64String(Model.Imagem);
-                                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                                                <img src='@imgSrc' style="max-width:110px; max-height:100px;" />
-                                                            }
+                                                            <img src="@Url.Action("UserPhotos", "contas" )" class="ImagemProfile" />
+
                                                         </dd>
                                                     </dl>
 
 
-                                                    
+
                                                 </p>
                                             </div>
                                             <div class="col-lg-8">
@@ -159,7 +154,7 @@
         </footer>
     </div>
 
-    }
+
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>

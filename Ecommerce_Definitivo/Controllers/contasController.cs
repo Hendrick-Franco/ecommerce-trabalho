@@ -17,7 +17,7 @@ namespace Ecommerce_Definitivo.Controllers
         private Context db = new Context();
 
 
-        
+
 
         // GET: contas
         public ActionResult Index(string pesquisa)
@@ -62,9 +62,9 @@ namespace Ecommerce_Definitivo.Controllers
         {
             var modelo = new conta();
             var model = new ContaViewModel();
-            
+
             return View(model);
-         }
+        }
 
         // GET: contas/Login
         public ActionResult Login()
@@ -79,7 +79,7 @@ namespace Ecommerce_Definitivo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastro(ContaViewModel model)
+        public ActionResult Cadastro([Bind(Exclude = "Imagem")] ContaViewModel model)
         {
 
             var imageTypes = new string[]{
@@ -100,10 +100,10 @@ namespace Ecommerce_Definitivo.Controllers
             if (ModelState.IsValid)
             {
                 var conta = new conta();
-                
-                conta.email= model.email;
+
+                conta.email = model.email;
                 conta.cpf = model.cpf;
-                conta.senha= model.senha;
+                conta.senha = model.senha;
                 conta.nome = model.nome;
                 conta.contaId = model.contaId;
 
@@ -116,11 +116,11 @@ namespace Ecommerce_Definitivo.Controllers
                 Logar(conta.email, conta.senha);
                 return RedirectToAction("Index");
 
-                
+
             }
 
             // Se ocorrer um erro retorna para pagina
-            
+
             return View(model);
         }
 
@@ -140,16 +140,15 @@ namespace Ecommerce_Definitivo.Controllers
                     var SQL = context.Conta
                         .Where(c => c.email == email && c.senha == senha).First();
 
-                    if (Session["id"] == null && Session["email"] == null && Session["id"] == null)
-                    {
+                  
                         Session.Timeout = 20;
                         Session.Add("id", SQL.contaId);
                         Session.Add("nome", SQL.nome);
                         Session.Add("email", SQL.email);
-                        Session.Add("foto", SQL.Imagem.ToString());
-                        
+                      
 
-                    }
+
+                    
 
 
 
@@ -249,6 +248,11 @@ namespace Ecommerce_Definitivo.Controllers
                 db.Entry(conta).State = EntityState.Modified;
                 db.SaveChanges();
 
+                //altera session apos update
+                Session.Add("id", conta.contaId);
+                Session.Add("nome", conta.nome);
+                Session.Add("email", conta.email);
+
             }
             return RedirectToAction("Index");
         }
@@ -287,5 +291,52 @@ namespace Ecommerce_Definitivo.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+        public FileContentResult UserPhotos()
+        {
+
+        
+                int userId = Convert.ToInt32(Session["id"].ToString());
+
+                if (userId == 0)
+                {
+                    string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+
+                    byte[] imageData = null;
+                    FileInfo fileInfo = new FileInfo(fileName);
+                    long imageFileLength = fileInfo.Length;
+                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fs);
+                    imageData = br.ReadBytes((int)imageFileLength);
+
+                    return File(imageData, "image/png");
+
+                }
+                // to get the user details to load user Image
+
+                var userImage = db.Conta.Where(x => x.contaId == userId).FirstOrDefault();
+                if(userImage.Imagem != null) { 
+                return new FileContentResult(userImage.Imagem, "image/jpeg");
+            }
+            else
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.jpg");
+
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
+                return File(imageData, "image/png");
+            }
+        }
+          
+        }
+
+
+
     }
-}
+
