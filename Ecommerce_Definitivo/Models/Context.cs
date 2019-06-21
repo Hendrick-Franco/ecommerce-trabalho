@@ -21,5 +21,12 @@ namespace Ecommerce_Definitivo.Models
         public DbSet<endereco> endereco{ get; set; }
         public DbSet<venda> venda { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+
+    
+        public DbSet<FormaPagamento> formpagamento { get; set; }
+
+        //public System.Data.Entity.DbSet<Ecommerce_Definitivo.Models.cartao> cartao { get; set; }
+
+        //public System.Data.Entity.DbSet<Ecommerce_Definitivo.Models.boleto> boleto { get; set; }
     }
 }

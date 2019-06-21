@@ -11,5 +11,7 @@ namespace Ecommerce_Definitivo.Models
         public string numero { get; set; }
         public override double valor { get; set; }
         public override int pagamentoId { get; set; }
+
+        public conta conta;
     }
 }
