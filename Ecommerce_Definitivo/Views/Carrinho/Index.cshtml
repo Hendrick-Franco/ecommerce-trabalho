@@ -1,0 +1,56 @@
+﻿@using Ecommerce_Definitivo.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table border="1">
+    <tr>
+        <th></th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Subtotal</th>
+    </tr>
+    @{ if (Session["Carrinho"] == null)
+        {
+
+        }
+        else
+        {
+            foreach (var itemCarrinho in (List<ItemCarrinho>)Session["Carrinho"])
+            {
+                <tr>
+                    <td>
+                        @{
+                            var base64 = Convert.ToBase64String(itemCarrinho.produto.Imagem);
+                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        }
+                        <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
+                    </td>
+                    <td>@itemCarrinho.produto.nome</td>
+                    <td>@itemCarrinho.produto.preco</td>
+                    <td>@itemCarrinho.quantidade</td>
+                    <td>@(String.Format("{0:N0}", itemCarrinho.produto.preco * itemCarrinho.quantidade))  </td>
+                    <td>
+                        @Html.ActionLink("Remover", "RemoverItemCarrinho", "Carrinho", new { id = itemCarrinho.produto.produtoId },
+                        new { onclick = "return confirm ('Deseja realmente remover o produto?')" })
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="5">Total:</td>
+                <td>
+                    @{
+                        List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
+                        var total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                    }
+                    R$ @total
+                </td>
+            </tr>
+        }
+    }
+</table>
+<br>
+@Html.ActionLink("Voltar aos produtos","Index","produtoes")

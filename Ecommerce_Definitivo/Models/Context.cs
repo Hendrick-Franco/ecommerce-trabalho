@@ -15,11 +15,10 @@ namespace Ecommerce_Definitivo.Models
         {
         }
 
-        public DbSet<conta> Conta{ get; set; }
-        public DbSet<CarrinhoProduto> carrinhoProdutos{ get; set; }
-        public DbSet<produto> produto { get; set; }
+        public DbSet<conta> Conta{ get; set; }        
+        public DbSet<produto> produto { get; set; }       
         public DbSet<endereco> endereco{ get; set; }
         public DbSet<venda> venda { get; set; }
-        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }        
     }
 }

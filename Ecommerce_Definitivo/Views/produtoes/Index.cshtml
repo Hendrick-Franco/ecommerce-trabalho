@@ -72,8 +72,8 @@
             </td>
         }
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.produtoId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.produtoId }) |
+            
+            @Html.ActionLink("Adicionar ao carrinho", "AdicionarItemCarrinho","Carrinho",new {id = item.produtoId },null)
             @Html.ActionLink("Delete", "Delete", new { id = item.produtoId })
         </td>
     </tr>
