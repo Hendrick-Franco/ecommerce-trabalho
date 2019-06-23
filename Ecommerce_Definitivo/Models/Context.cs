@@ -15,12 +15,12 @@ namespace Ecommerce_Definitivo.Models
         {
         }
 
-        public DbSet<conta> Conta{ get; set; }
-        public DbSet<CarrinhoProduto> carrinhoProdutos{ get; set; }
-        public DbSet<produto> produto { get; set; }
+        public DbSet<conta> Conta{ get; set; }        
+        public DbSet<produto> produto { get; set; }       
         public DbSet<endereco> endereco{ get; set; }
         public DbSet<venda> venda { get; set; }
-        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }        
+        
 
     
         public DbSet<FormaPagamento> formpagamento { get; set; }
@@ -28,5 +28,6 @@ namespace Ecommerce_Definitivo.Models
         //public System.Data.Entity.DbSet<Ecommerce_Definitivo.Models.cartao> cartao { get; set; }
 
         //public System.Data.Entity.DbSet<Ecommerce_Definitivo.Models.boleto> boleto { get; set; }
+
     }
 }

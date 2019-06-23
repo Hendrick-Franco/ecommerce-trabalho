@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.Title = "Cadastro";
+}
 
 <html>
 
@@ -33,6 +35,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "home")</li>
                     <li> @Html.ActionLink("Produtos", "Index", "produtoes")</li>
+                    <li> @Html.ActionLink("Meu carrinho", "Index", "Carrinho")</li>
 
 
                 </ul>
@@ -57,7 +60,15 @@
 
                                                     <dl>
                                                         <dd>
+                                                            @if (Model.Imagem != null)
+                                                            {
+                                                                var base64 = Convert.ToBase64String(Model.Imagem);
+                                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                                                <img src='@imgSrc' style="max-width:110px; max-height:100px;" />
+                                                            }
+
                                                             <img src="@Url.Action("UserPhotos", "contas" )" class="ImagemProfile" />
+
 
                                                         </dd>
                                                     </dl>

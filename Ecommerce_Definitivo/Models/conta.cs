@@ -16,9 +16,7 @@ namespace Ecommerce_Definitivo.Models
         public string senha { get; set; }
         public string nome { get; set; }
         public string cpf { get; set; }
-        public byte[] Imagem { get; set; }
-
-        public List<endereco> enderecos = new List<endereco>();
-        
+        public byte[] Imagem { get; set; }        
+        public List<endereco> enderecos = new List<endereco>();        
     }
 }

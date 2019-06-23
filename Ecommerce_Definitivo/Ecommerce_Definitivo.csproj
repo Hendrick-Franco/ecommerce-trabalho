@@ -146,6 +146,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CarrinhoController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\produtoesController.cs" />
@@ -155,7 +156,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\boleto.cs" />
-    <Compile Include="Models\CarrinhoProduto.cs" />
     <Compile Include="Models\cartao.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\conta.cs" />
@@ -165,6 +165,7 @@
     <Compile Include="Models\endereco.cs" />
     <Compile Include="Models\FormaPagamento.cs" />
     <Compile Include="Models\IFormaP.cs" />
+    <Compile Include="Models\ItemCarrinho.cs" />
     <Compile Include="Models\produto.cs" />
     <Compile Include="Models\ProdutoViewModel.cs" />
     <Compile Include="Models\venda.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Views\contas\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Carrinho\Index.cshtml" />
     <Content Include="Views\vendas\Create.cshtml" />
     <Content Include="Views\vendas\Delete.cshtml" />
     <Content Include="Views\vendas\Details.cshtml" />
