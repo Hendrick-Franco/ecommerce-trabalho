@@ -431,3 +431,11 @@ input[type=text], [type=password], [type=email] {
             border-top: 0 none;
         }
 }
+.ImagemProfile {
+    max-width: 110px;
+    max-height: 110px;
+    height: 110px;
+    margin: auto;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}

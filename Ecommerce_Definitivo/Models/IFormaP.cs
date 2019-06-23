@@ -9,7 +9,5 @@ namespace Ecommerce_Definitivo.Models
    public interface IFormaP
     {
         double valor { get; set; }
-
-        
     }
 }
