@@ -68,12 +68,7 @@
                     <!-- END PRODUCT -->
                     <!-- PRODUCT -->
 
-                    <div class="pull-right">
-                        <a href="" class="btn btn-outline-secondary pull-right">
-                            Update shopping cart
-                        </a>
-                    </div>
-
+                   
                                         }
                                     }
                                 }
@@ -81,7 +76,7 @@
         <div class="card-footer">
            
             <div class="pull-right" style="margin: 10px">
-                <a href="" class="btn btn-success pull-right">Pagar</a>
+                <a href="@Url.Action("RealizarCheckout", "vendas")" class="btn btn-success pull-right">Pagar</a>
                 <div class="pull-right" style="margin: 5px">
                     @{
                         List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
