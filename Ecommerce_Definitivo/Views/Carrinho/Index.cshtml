@@ -1,56 +1,98 @@
-﻿@using Ecommerce_Definitivo.Models
+﻿
+@using Ecommerce_Definitivo.Models
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-<table border="1">
-    <tr>
-        <th></th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Quantidade</th>
-        <th>Subtotal</th>
-    </tr>
-    @{ if (Session["Carrinho"] == null)
-        {
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-        }
-        else
-        {
-            foreach (var itemCarrinho in (List<ItemCarrinho>)Session["Carrinho"])
-            {
-                <tr>
-                    <td>
-                        @{
-                            var base64 = Convert.ToBase64String(itemCarrinho.produto.Imagem);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                        }
-                        <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
-                    </td>
-                    <td>@itemCarrinho.produto.nome</td>
-                    <td>@itemCarrinho.produto.preco</td>
-                    <td>@itemCarrinho.quantidade</td>
-                    <td>@(String.Format("{0:N0}", itemCarrinho.produto.preco * itemCarrinho.quantidade))  </td>
-                    <td>
-                        @Html.ActionLink("Remover", "RemoverItemCarrinho", "Carrinho", new { id = itemCarrinho.produto.produtoId },
+<script src="https://use.fontawesome.com/c560c025cf.js"></script>
+<div class="container">
+    <div class="card shopping-cart">
+        <div class="card-header bg-dark text-light">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            Meu Carrinho
+            <a href="@Url.Action( null, "produtoes/Index")" class="btn btn-outline-info btn-sm pull-right"> Continuar Comprando</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-body">
+            <!-- PRODUCT -->
+            @{if (Session["Carrinho"] == null)
+                {
+
+                }
+                else
+                {
+                    foreach (var itemCarrinho in (List<ItemCarrinho>)Session["Carrinho"])
+                    {
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-2 text-center">
+                            @{
+                                var base64 = Convert.ToBase64String(itemCarrinho.produto.Imagem);
+                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                            }
+                            <img class="img-responsive" src='@imgSrc' alt="prewiew" width="120" height="80"/>
+                            
+                        </div>
+                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                            <h4 class="product-name"><strong>@itemCarrinho.produto.nome</strong></h4>
+                            <h4>
+                                <small>@itemCarrinho.produto.descricao</small>
+                            </h4>
+                        </div>
+                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                <h6><strong>@itemCarrinho.produto.preco</strong></h6>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-4">
+                                <div class="quantity">
+                                    <input type="button" value="+" class="plus">
+                                    <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
+                                           size="4">
+                                    <input type="button" value="-" class="minus">
+                                </div>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 text-right">
+                                <button type="button" class="btn btn-outline-danger btn-xs" href="">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                    @Html.ActionLink("Remover", "RemoverItemCarrinho", "Carrinho", new { id = itemCarrinho.produto.produtoId },
                         new { onclick = "return confirm ('Deseja realmente remover o produto?')" })
-                    </td>
-                </tr>
-            }
-            <tr>
-                <td colspan="5">Total:</td>
-                <td>
+                                   
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- END PRODUCT -->
+                    <!-- PRODUCT -->
+
+                    <div class="pull-right">
+                        <a href="" class="btn btn-outline-secondary pull-right">
+                            Update shopping cart
+                        </a>
+                    </div>
+
+                                        }
+                                    }
+                                }
+        </div>
+        <div class="card-footer">
+           
+            <div class="pull-right" style="margin: 10px">
+                <a href="" class="btn btn-success pull-right">Pagar</a>
+                <div class="pull-right" style="margin: 5px">
                     @{
                         List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
-                        var total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                        var total="0" ;
+                        if (Session["Carrinho"] != null) {
+                             total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                        }
                     }
                     R$ @total
-                </td>
-            </tr>
-        }
-    }
-</table>
-<br>
-@Html.ActionLink("Voltar aos produtos","Index","produtoes")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

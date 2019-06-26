@@ -71,11 +71,11 @@
                 <img src='@imgSrc' style="max-width:100px; max-height:100px;" />
             </td>
         }
-        <td>
-            
-            @Html.ActionLink("Adicionar ao carrinho", "AdicionarItemCarrinho","Carrinho",new {id = item.produtoId },null)
-            @Html.ActionLink("Delete", "Delete", new { id = item.produtoId })
-        </td>
+            <td>
+
+                @Html.ActionLink("Adicionar ao carrinho", "AdicionarItemCarrinho", "Carrinho", new { id = item.produtoId }, null)
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.produtoId })*@
+            </td>
     </tr>
 }
 

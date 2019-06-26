@@ -4,47 +4,78 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Promoções</h2>
 
 <table class="table">
-            @foreach (var item in Model)
+    <tr>
+        <th>
+            Nome
+        </th>
+        <th>
+            Descrição
+        </th>
+
+        <th>
+            Categoria
+        </th>
+
+        <th>
+            Preço
+        </th>
+
+
+        <th>
+            Vitrine
+        </th>
+
+        <th>
+            Imagem
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nome)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.descricao)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
+            </td>
+
+            <td>
+                R$ @Html.DisplayFor(modelItem => item.preco)
+            </td>
+
+
+
+            <td>
+
+                @Html.DisplayFor(modelItem => item.vitrine)
+            </td>
+            @if (item.Imagem != null)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.nome)
-                    </td>
+                <td>
+                    @{
+                        var base64 = Convert.ToBase64String(item.Imagem);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                    }
+                    <img src="@imgSrc" style="max-width:100px; max-height:100px;" />
+                </td>
+            }
+            <td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.descricao)
-                    </td>
+                @Html.ActionLink("Adicionar ao carrinho", "AdicionarItemCarrinho", "Carrinho", new { id = item.produtoId }, null)
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Categoria.CategoriaNome)
-                    </td>
-
-                    <td>
-                        R$ @Html.DisplayFor(modelItem => item.preco)
-                    </td>
-
-
-
-                    <td>
-
-                        @Html.DisplayFor(modelItem => item.vitrine)
-                    </td>
-                    @if (item.Imagem != null)
-                    {
-                        <td>
-                            @{
-                                var base64 = Convert.ToBase64String(item.Imagem);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            }
-                            <img src="@imgSrc" style="max-width:100px; max-height:100px;" />
-                        </td>
-                                }
-                    
-                </tr>
-             }
+            </td>
+        </tr>
+    }
 </table>
 
 

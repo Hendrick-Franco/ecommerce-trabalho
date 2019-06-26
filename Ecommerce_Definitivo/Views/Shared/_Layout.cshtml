@@ -60,13 +60,7 @@
 
                                                     <dl>
                                                         <dd>
-                                                            @if (Model.Imagem != null)
-                                                            {
-                                                                var base64 = Convert.ToBase64String(Model.Imagem);
-                                                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                                                                <img src='@imgSrc' style="max-width:110px; max-height:100px;" />
-                                                            }
-
+                                                           
                                                             <img src="@Url.Action("UserPhotos", "contas" )" class="ImagemProfile" />
 
 
@@ -156,7 +150,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            
         </footer>
     </div>
 
