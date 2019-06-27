@@ -148,5 +148,39 @@ namespace Ecommerce_Definitivo.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult RealizarCheckout(FormaPagamento formapg)
+        {
+            //Chamando os negocios...
+            //Apos realizar pagamento e salvar na tabela Venda, Limpar o Carrinho.
+            //var radioButton = Request.Form["radioTipoPagamento"];
+            //if (radioButton.) {
+
+            //}
+            string sessionId = Session["id"].ToString();
+            venda venda = new venda();
+            List<ItemCarrinho> carrinho = new List<ItemCarrinho>();
+            carrinho = (List<ItemCarrinho>)Session["Carrinho"];
+            if ((sessionId != null))
+            {
+                venda.Conta = db.Conta.Find(Convert.ToInt32(sessionId));
+            }
+            else
+            {
+                return RedirectToAction("Logar", "contas");
+            }
+            venda.dataVenda = DateTime.Now;
+            venda.formapagamento = formapg;
+
+            foreach (ItemCarrinho itemCarrinho in carrinho)
+            {
+                venda.vlrTotal += (itemCarrinho.produto.preco * itemCarrinho.quantidade);
+                db.ItemVenda.Add(itemCarrinho);
+            }
+            db.venda.Add(venda);
+            db.SaveChanges();
+
+            return View();
+        }
     }
 }

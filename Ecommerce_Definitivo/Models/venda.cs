@@ -14,7 +14,7 @@ namespace Ecommerce_Definitivo.Models
         public int vendaId { get; set; }
 
         public DateTime dataVenda { get; set; }
-        public double vlrTotal { get; set; }
+        public decimal vlrTotal { get; set; }
         public IFormaP formapagamento { get; set; }
 
         public conta Conta;

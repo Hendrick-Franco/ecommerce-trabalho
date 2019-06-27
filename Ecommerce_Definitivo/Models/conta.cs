@@ -11,12 +11,12 @@ namespace Ecommerce_Definitivo.Models
     public class conta
     {
         [Key]
-        public int contaId { get; set;}
-        public string email { get; set;}
+        public int contaId { get; set; }
+        public string email { get; set; }
         public string senha { get; set; }
         public string nome { get; set; }
         public string cpf { get; set; }
-        public byte[] Imagem { get; set; }        
-        public List<endereco> enderecos = new List<endereco>();        
+        public byte[] Imagem { get; set; }
+        public List<endereco> enderecos = new List<endereco>();
     }
 }

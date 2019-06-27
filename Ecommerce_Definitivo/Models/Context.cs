@@ -6,8 +6,8 @@ using System.Runtime.Remoting.Contexts;
 using System.Web;
 
 namespace Ecommerce_Definitivo.Models
-{ 
-    public class Context:DbContext
+{
+    public class Context : DbContext
 
     {
 
@@ -15,14 +15,15 @@ namespace Ecommerce_Definitivo.Models
         {
         }
 
-        public DbSet<conta> Conta{ get; set; }        
-        public DbSet<produto> produto { get; set; }       
-        public DbSet<endereco> endereco{ get; set; }
+        public DbSet<conta> Conta { get; set; }
+        public DbSet<produto> produto { get; set; }
+        public DbSet<endereco> endereco { get; set; }
         public DbSet<venda> venda { get; set; }
-        public DbSet<Categoria> Categorias { get; set; }        
-        
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<ItemCarrinho> ItemVenda { get; set; }
 
-    
+
+
         public DbSet<FormaPagamento> formpagamento { get; set; }
 
         //public System.Data.Entity.DbSet<Ecommerce_Definitivo.Models.cartao> cartao { get; set; }

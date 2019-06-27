@@ -8,10 +8,10 @@ using System.Web;
 namespace Ecommerce_Definitivo.Models
 {
     [Table("formapagamento")]
-    public abstract class FormaPagamento : IFormaP
+    public class FormaPagamento : IFormaP
     {
         [Key]
-        public abstract int pagamentoId { get; set; }
-        public abstract double valor { get; set; }
+        public int pagamentoId { get; set; }
+        public double valor { get; set; }
     }
 }

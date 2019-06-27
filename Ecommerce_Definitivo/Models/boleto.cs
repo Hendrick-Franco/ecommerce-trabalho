@@ -11,7 +11,5 @@ namespace Ecommerce_Definitivo.Models
         [Key]
         public int boletoId { get; set; }
         public string codigo { get; set; }
-        public override int pagamentoId { get; set; }
-        public override double valor { get; set; }
     }
 }
