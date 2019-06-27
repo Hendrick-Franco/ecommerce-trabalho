@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Ecommerce_Definitivo.Models;
@@ -20,12 +21,20 @@ namespace Ecommerce_Definitivo.Controllers
             ViewBag.Categorias = db.Categorias;
         }
         // GET: Produtos
-        public ActionResult Index()
+        public async Task<ActionResult> Index(string nome)
         {
-            var produto = db.produto.ToList();
-            return View(produto);
+            var produto = from p in db.produto
+                          select p;
+            if (!String.IsNullOrEmpty(nome)) {
+                produto = produto.Where(p => p.nome.Contains(nome));
+                    
+                                      
+            }
+            
+            return View( await produto.ToListAsync());
         }
 
+        
         public ActionResult Create()
         {
             ViewBag.Categorias = db.Categorias;

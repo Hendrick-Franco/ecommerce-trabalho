@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
@@ -44,14 +44,14 @@
                         </div>
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                             <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong>@itemCarrinho.produto.preco</strong></h6>
+                                <h6><strong >R$ @itemCarrinho.produto.preco</strong></h6>
                             </div>
                             <div class="col-4 col-sm-4 col-md-4">
                                 <div class="quantity">
-                                    <input type="button" value="+" class="plus">
-                                    <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"
-                                           size="4">
-                                    <input type="button" value="-" class="minus">
+                                    
+                                    <input type="number" step="1" max="99" min="1" value="@itemCarrinho.quantidade" title="Qty" id="qty" class="qty"
+                                           size="4" >
+                                   
                                 </div>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2 text-right">
@@ -80,14 +80,19 @@
                 <div class="pull-right" style="margin: 5px">
                     @{
                         List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
-                        var total="0" ;
-                        if (Session["Carrinho"] != null) {
-                             total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                        var total = "0";
+
+                        if (Session["Carrinho"] != null)
+                        {
+                            total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
                         }
                     }
                     R$ @total
+
                 </div>
+               
             </div>
         </div>
     </div>
 </div>
+

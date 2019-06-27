@@ -15,26 +15,14 @@ namespace Ecommerce_Definitivo.Controllers
     {
         private Context db = new Context();
 
-        public ActionResult Index(string pesquisa)
+        public ActionResult Index()
         {
 
             var homeprodutos = db.produto.Where(c => c.vitrine == true).ToList();
             return View(homeprodutos);
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+    
+   
     }
 }
 

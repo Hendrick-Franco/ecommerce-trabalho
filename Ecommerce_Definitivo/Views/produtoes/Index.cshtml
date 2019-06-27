@@ -2,13 +2,22 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Produtos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar novo", "Create")
 </p>
+
+<form asp-controller="Produtoes" asp-action="Index" style="width:90%;">
+    <p align="center">
+        Nome: <input type="text" name="nome">
+        <input type="submit" value="Pesquisar" />
+    </p>
+</form>
+
 <table class="table">
     <tr>
         <th>
@@ -74,7 +83,7 @@
             <td>
 
                 @Html.ActionLink("Adicionar ao carrinho", "AdicionarItemCarrinho", "Carrinho", new { id = item.produtoId }, null)
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.produtoId })*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.produtoId })
             </td>
     </tr>
 }
