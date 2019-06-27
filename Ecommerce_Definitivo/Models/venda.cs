@@ -17,6 +17,7 @@ namespace Ecommerce_Definitivo.Models
         public decimal vlrTotal { get; set; }
         public IFormaP formapagamento { get; set; }
 
-        public conta Conta;
+        public int ContaId { get; set; }
+        public virtual conta Conta { get; set; }
     }
 }
