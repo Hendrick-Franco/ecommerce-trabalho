@@ -13,5 +13,24 @@ namespace Ecommerce_Definitivo.Models
         [Key]
         public int pagamentoId { get; set; }
         public double valor { get; set; }
+        private IFormaP _proximo;
+
+        public IFormaP SetNext(IFormaP pagamento)
+        {
+            this._proximo = pagamento;
+            return pagamento;
+        }
+        public virtual object Pagamento(object request)
+        {
+            if (this._proximo != null)
+            {
+                return this._proximo.Pagamento(request);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
     }
 }

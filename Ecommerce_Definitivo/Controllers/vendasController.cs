@@ -157,10 +157,48 @@ namespace Ecommerce_Definitivo.Controllers
             //if (radioButton.) {
 
             //}
+            string escolha = "Boleto";//Capturar Escolha da Pagina.
+
+            Cobrar(escolha);//Metodo retorna True se o pagamento for concluido com Sucesso.            
+
+            return View();
+        }
+        public bool Cobrar(string escolha)
+        {
+            var boleto = new boleto();
+            var cartao = new cartao();
+            boleto.SetNext(cartao);
+            if (escolha == "Boleto")
+            {
+                RealizarPagamento(boleto, escolha);//Chama o metodo para Pagar com Boleto
+            }
+            if (escolha == "Cartao")
+            {
+                RealizarPagamento(cartao, escolha);//Chama o metodo para Pagar com Cartão
+            }
+
+            return true;
+        }
+        public ActionResult RealizarPagamento(IFormaP pagamento, string escolha)
+        {
+            //Metodos pra preencher Todos os campos para FINALIZAR a venda.
+
+            //Pedir campos para preenchimento do cartão caso necessario.
+            //OBS: Caso necessario já ter Cartão registrado ou cadastrar.
+
+            //Capturando a Sessão.
             string sessionId = Session["id"].ToString();
+
+            //Instanciando a Venda.
             venda venda = new venda();
+
+            //Instanciando o ItemCarrinho
             List<ItemCarrinho> carrinho = new List<ItemCarrinho>();
+
+            //Capturando a Sessão do Carrinho
             carrinho = (List<ItemCarrinho>)Session["Carrinho"];
+
+            //Realizando Validação do Carrinho / Conta.
             if ((sessionId != null))
             {
                 venda.Conta = db.Conta.Find(Convert.ToInt32(sessionId));
@@ -169,18 +207,36 @@ namespace Ecommerce_Definitivo.Controllers
             {
                 return RedirectToAction("Logar", "contas");
             }
-            venda.dataVenda = DateTime.Now;
-            venda.formapagamento = formapg;
 
+            //Preenchendo a Data da Venda  = "Agora".
+            venda.dataVenda = DateTime.Now;
+
+            //Preenchendo a forma de pagamento.
+            venda.formapagamento = pagamento;
+
+            //Percorrendo todos os itens do carrinho.
             foreach (ItemCarrinho itemCarrinho in carrinho)
             {
                 venda.vlrTotal += (itemCarrinho.produto.preco * itemCarrinho.quantidade);
+                //Gravando os dados no ItemCarrinho na base.
                 db.ItemVenda.Add(itemCarrinho);
             }
+
+            //Gravando os dados da Venda.
             db.venda.Add(venda);
+
+            //Salvando Alterações.
             db.SaveChanges();
 
+
+            //ESPAÇO PARA REALIZAR OS METODOS DE CRIAÇÂO DE BOLETO
+            //EXEMPLO:
+            //GerarBoleto(db.venda);
+            //Abre o PDF.
+
+            //Retorna compra de Sucesso ou mensagem de Erro.
             return View();
+
         }
     }
 }
