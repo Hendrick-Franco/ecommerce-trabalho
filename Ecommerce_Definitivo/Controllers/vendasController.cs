@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Ecommerce_Definitivo.Models;
 
 namespace Ecommerce_Definitivo.Controllers
@@ -149,49 +150,50 @@ namespace Ecommerce_Definitivo.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult RealizarCheckout(FormaPagamento formapg)
+        //public ActionResult RealizarCheckout(FormaPagamento formapg)
+        //{
+        //    //Chamando os negocios...
+        //    //Apos realizar pagamento e salvar na tabela Venda, Limpar o Carrinho.
+        //    var radioButton = Request.Form["radioTipoPagamento"];
+        //    if (radioButton.) {
+
+        //    }
+        //    string escolha = "Boleto";//Capturar Escolha da Pagina.
+
+        //    Cobrar(escolha);//Metodo retorna True se o pagamento for concluido com Sucesso.            
+
+        //    return View();
+        //}
+        public ActionResult Cobrar()
         {
-            //Chamando os negocios...
-            //Apos realizar pagamento e salvar na tabela Venda, Limpar o Carrinho.
-            //var radioButton = Request.Form["radioTipoPagamento"];
-            //if (radioButton.) {
-
-            //}
-            string escolha = "Boleto";//Capturar Escolha da Pagina.
-
-            Cobrar(escolha);//Metodo retorna True se o pagamento for concluido com Sucesso.            
-
-            return View();
-        }
-        public bool Cobrar(string escolha)
-        {
+            var escolha = Request.Form["radioFormaPagamento"];
             var boleto = new boleto();
             var cartao = new cartao();
             boleto.SetNext(cartao);
             if (escolha == "Boleto")
             {
-                RealizarPagamento(boleto, escolha);//Chama o metodo para Pagar com Boleto
+                return RedirectToAction("RealizarPagamento", new RouteValueDictionary(new
+                { controller = "vendas", action = "RealizarPagamento", formapg = boleto }));
             }
-            if (escolha == "Cartao")
-            {
-                RealizarPagamento(cartao, escolha);//Chama o metodo para Pagar com Cartão
-            }
-
-            return true;
+            else {
+                return RedirectToAction("RealizarPagamento", new RouteValueDictionary(new
+                { controller = "vendas", action = "RealizarPagamento", formapg = cartao }));
+            }                                               
         }
-        public ActionResult RealizarPagamento(IFormaP pagamento, string escolha)
+        [HttpPost]
+        public ActionResult RealizarPagamento(FormaPagamento formapg)
         {
             //Metodos pra preencher Todos os campos para FINALIZAR a venda.
 
             //Pedir campos para preenchimento do cartão caso necessario.
             //OBS: Caso necessario já ter Cartão registrado ou cadastrar.
-
+            
             //Capturando a Sessão.
             string sessionId = Session["id"].ToString();
 
             //Instanciando a Venda.
             venda venda = new venda();
-
+            var escolha = Request.Form["radioFormaPagamento"];
             //Instanciando o ItemCarrinho
             List<ItemCarrinho> carrinho = new List<ItemCarrinho>();
 
@@ -212,7 +214,7 @@ namespace Ecommerce_Definitivo.Controllers
             venda.dataVenda = DateTime.Now;
 
             //Preenchendo a forma de pagamento.
-            venda.formapagamento = pagamento;
+            venda.formapagamento = formapg;
 
             //Percorrendo todos os itens do carrinho.
             foreach (ItemCarrinho itemCarrinho in carrinho)
