@@ -73,10 +73,22 @@
                                     }
                                 }
         </div>
-        <div class="card-footer">
-           
+        @using (Html.BeginForm("RealizarPagamento", "vendas", FormMethod.Post))
+        {
+        <div class="card-footer">           
             <div class="pull-right" style="margin: 10px">
-                <a href="@Url.Action("RealizarCheckout", "vendas")" class="btn btn-success pull-right">Pagar</a>
+                <br />
+                <label class="containerInput">
+                    Cartão
+                    <input id ="rbtPgBoleto" type="radio" name="radioFormaPagamento" value="Cartao">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="containerInput">
+                    Boleto
+                    <input id="rbtrbtPgCartao" type="radio" name="radioFormaPagamento" value="Boleto">
+                    <span class="checkmark"></span>
+                </label>
+                <button type="submit" class="btn btn-success pull-right">Pagar</button>
                 <div class="pull-right" style="margin: 5px">
                     @{
                         List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
@@ -88,11 +100,10 @@
                         }
                     }
                     R$ @total
-
                 </div>
-               
             </div>
         </div>
+         }
     </div>
 </div>
 
