@@ -1,39 +1,42 @@
-﻿@model IEnumerable<Ecommerce_Definitivo.Models.venda>
+﻿
+@model IEnumerable<Ecommerce_Definitivo.Models.venda>
+
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Minhas Compras</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.dataVenda)
+            Data
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.vlrTotal)
+            Total
         </th>
-        <th></th>
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.dataVenda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.vlrTotal)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.vendaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.vendaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.vendaId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+            
+                @Html.DisplayFor(modelItem => item.dataVenda)
+            </td>
+            <td>
+                R$ @Html.DisplayFor(modelItem => item.vlrTotal)
+            </td>
+
+            <td>
+              
+                @Html.ActionLink("Ver detalhes", "Details", new { id = item.vendaId }) 
+               
+            </td>
+        </tr>
+    }
 
 </table>

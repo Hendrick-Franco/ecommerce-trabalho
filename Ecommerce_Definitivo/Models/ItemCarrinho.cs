@@ -12,7 +12,9 @@ namespace Ecommerce_Definitivo.Models
     {
         [Key]
         public int itemVendaId { get; set; }
-        public produto produto;
+
+        public int produtoId;
+        public virtual produto produto { get; set; }
 
         public int quantidade { get; set; }
 
