@@ -140,21 +140,11 @@ namespace Ecommerce_Definitivo.Controllers
                     var SQL = context.Conta
                         .Where(c => c.email == email && c.senha == senha).First();
 
-                  
-                        Session.Timeout = 20;
-                        Session.Add("id", SQL.contaId);
-                        Session.Add("nome", SQL.nome);
-                        Session.Add("email", SQL.email);
-                      
 
-
-                    
-
-
-
-
-
-
+                    Session.Timeout = 20;
+                    Session.Add("id", SQL.contaId);
+                    Session.Add("nome", SQL.nome);
+                    Session.Add("email", SQL.email);
 
                     return RedirectToAction($"Details/{SQL.contaId}");
 
@@ -297,27 +287,28 @@ namespace Ecommerce_Definitivo.Controllers
         public FileContentResult UserPhotos()
         {
 
-        
-                int userId = Convert.ToInt32(Session["id"].ToString());
 
-                if (userId == 0)
-                {
-                    string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
+            int userId = Convert.ToInt32(Session["id"].ToString());
 
-                    byte[] imageData = null;
-                    FileInfo fileInfo = new FileInfo(fileName);
-                    long imageFileLength = fileInfo.Length;
-                    FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                    BinaryReader br = new BinaryReader(fs);
-                    imageData = br.ReadBytes((int)imageFileLength);
+            if (userId == 0)
+            {
+                string fileName = HttpContext.Server.MapPath(@"~/Images/noImg.png");
 
-                    return File(imageData, "image/png");
+                byte[] imageData = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+                long imageFileLength = fileInfo.Length;
+                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fs);
+                imageData = br.ReadBytes((int)imageFileLength);
 
-                }
-                // to get the user details to load user Image
+                return File(imageData, "image/png");
 
-                var userImage = db.Conta.Where(x => x.contaId == userId).FirstOrDefault();
-                if(userImage.Imagem != null) { 
+            }
+            // to get the user details to load user Image
+
+            var userImage = db.Conta.Where(x => x.contaId == userId).FirstOrDefault();
+            if (userImage.Imagem != null)
+            {
                 return new FileContentResult(userImage.Imagem, "image/jpeg");
             }
             else
@@ -333,10 +324,10 @@ namespace Ecommerce_Definitivo.Controllers
                 return File(imageData, "image/png");
             }
         }
-          
-        }
-
-
 
     }
+
+
+
+}
 

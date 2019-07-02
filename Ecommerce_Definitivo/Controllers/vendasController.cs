@@ -18,24 +18,37 @@ namespace Ecommerce_Definitivo.Controllers
         // GET: vendas
         public ActionResult Index()
         {
-            //switch (Tipo)
-            //{
-            //    case "Cartão":
-            //        FormaPagamento cartao = new cartao();
-            //        Create(cartao);
-            //        //Create(cartao,Carrinho); -- Redicionaria para criação da VENDA.
-            //        break;
-            //    case "Boleto":
-            //        FormaPagamento boleto = new boleto();
-            //        Create(boleto);
-            //        //Create(boleto,Carrinho); -- Redicionaria para criação da VENDA.
-            //        break;
-            //}
 
-            return View(db.venda.ToList());
-            //return RedirectToAction("Create");
+            int contaid = Convert.ToInt32(Session["id"].ToString());
 
-            //return View(db.venda.ToList());
+
+            //pega todas as vendas
+            var Vendas = from v in db.venda
+                         select v;
+            // Pega os todos os dados de itemCarrinhos.
+            try
+            {
+                var itemcarrinhos = db.ItemVenda.ToList();
+            }
+            catch
+            {
+
+            }
+            if (contaid > 0)
+            {
+                Vendas = Vendas.Where(v => v.ContaId == contaid);
+
+
+            }
+            // Junta tabela venda com item venda,
+
+            var query2 = from v in db.venda
+                         join ic in db.ItemVenda on v.vendaId equals ic.vendaId into gj
+                         from ic in gj
+                         select new { vendaId = v.vendaId, Quantidade = ic.quantidade }
+                         ;
+            return View(Vendas);
+
         }
 
         // GET: vendas/Details/5
@@ -150,50 +163,23 @@ namespace Ecommerce_Definitivo.Controllers
             base.Dispose(disposing);
         }
 
-        //public ActionResult RealizarCheckout(FormaPagamento formapg)
-        //{
-        //    //Chamando os negocios...
-        //    //Apos realizar pagamento e salvar na tabela Venda, Limpar o Carrinho.
-        //    var radioButton = Request.Form["radioTipoPagamento"];
-        //    if (radioButton.) {
 
-        //    }
-        //    string escolha = "Boleto";//Capturar Escolha da Pagina.
-
-        //    Cobrar(escolha);//Metodo retorna True se o pagamento for concluido com Sucesso.            
-
-        //    return View();
-        //}
-        public ActionResult Cobrar()
-        {
-            var escolha = Request.Form["radioFormaPagamento"];
-            var boleto = new boleto();
-            var cartao = new cartao();
-            boleto.SetNext(cartao);
-            if (escolha == "Boleto")
-            {
-                return RedirectToAction("RealizarPagamento", new RouteValueDictionary(new
-                { controller = "vendas", action = "RealizarPagamento", formapg = boleto }));
-            }
-            else {
-                return RedirectToAction("RealizarPagamento", new RouteValueDictionary(new
-                { controller = "vendas", action = "RealizarPagamento", formapg = cartao }));
-            }                                               
-        }
         [HttpPost]
-        public ActionResult RealizarPagamento(FormaPagamento formapg)
+        [ActionName("RealizarPagamento")]
+        public ActionResult RealizarPagamento()
         {
             //Metodos pra preencher Todos os campos para FINALIZAR a venda.
 
             //Pedir campos para preenchimento do cartão caso necessario.
             //OBS: Caso necessario já ter Cartão registrado ou cadastrar.
-            
+
             //Capturando a Sessão.
             string sessionId = Session["id"].ToString();
 
             //Instanciando a Venda.
             venda venda = new venda();
             var escolha = Request.Form["radioFormaPagamento"];
+
             //Instanciando o ItemCarrinho
             List<ItemCarrinho> carrinho = new List<ItemCarrinho>();
 
@@ -213,8 +199,7 @@ namespace Ecommerce_Definitivo.Controllers
             //Preenchendo a Data da Venda  = "Agora".
             venda.dataVenda = DateTime.Now;
 
-            //Preenchendo a forma de pagamento.
-            venda.formapagamento = formapg;
+
 
             //Percorrendo todos os itens do carrinho.
             foreach (ItemCarrinho itemCarrinho in carrinho)
@@ -223,6 +208,23 @@ namespace Ecommerce_Definitivo.Controllers
                 //Gravando os dados no ItemCarrinho na base.
                 db.ItemVenda.Add(itemCarrinho);
             }
+
+            boleto boleto = new boleto();
+            cartao cartao = new cartao();
+            //Verificando quais os metodos para criar Boleto ou Capturar o Cartão.
+
+            if (escolha == "Boleto")
+            {
+                //boleto = GerarBoleto();
+            }
+            if (escolha == "Cartao")//VERIFICAR PORQUE NAO RECUPERA O FORM.
+            {
+                cartao.numero = Request.Form["NumeroCartao"];
+                cartao.datevalidade = Request.Form["Mes"] + Request.Form["Ano"];
+                cartao.codigoseguranca = Request.Form["CodigoSeg"];
+            }
+
+            //Preenchendo a forma de pagamento.
 
             //Gravando os dados da Venda.
             db.venda.Add(venda);

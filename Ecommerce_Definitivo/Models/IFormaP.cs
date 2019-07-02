@@ -8,8 +8,6 @@ namespace Ecommerce_Definitivo.Models
 {
    public interface IFormaP
     {
-        IFormaP SetNext(IFormaP pagamento);
-        object Pagamento(object request);
         double valor { get; set; }
     }
 }

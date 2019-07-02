@@ -3,6 +3,7 @@
     padding-bottom: 20px;
 }
 
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -51,7 +52,7 @@ textarea {
 /* BASIC */
 
 html {
-    background-color: #56baed;
+    background-color: #fff;
 }
 
 body {
@@ -570,3 +571,13 @@ input[type=text], [type=password], [type=email] {
     border-radius: 50%;
     background: white;
 }
+
+
+
+.panel-body {
+    margin-top: 20px;
+    
+}
+.panel-title {display: inline;font-weight: bold;}
+.checkbox.pull-right { margin: 0; }
+.pl-ziro { padding-left: 0px; }

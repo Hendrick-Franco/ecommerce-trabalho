@@ -13,6 +13,8 @@ namespace Ecommerce_Definitivo.Models
         [Key]
         public int vendaId { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
+               ApplyFormatInEditMode = true)]
         public DateTime dataVenda { get; set; }
         public decimal vlrTotal { get; set; }
         public IFormaP formapagamento { get; set; }
