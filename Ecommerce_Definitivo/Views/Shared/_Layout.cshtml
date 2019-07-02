@@ -60,7 +60,7 @@
 
                                                     <dl>
                                                         <dd>
-                                                           
+
                                                             <img src="@Url.Action("UserPhotos", "contas" )" class="ImagemProfile" />
 
 
@@ -75,9 +75,13 @@
                                                 <p class="text-left"><strong>@HttpContext.Current.Session["nome"].ToString()</strong></p>
                                                 <p class="text-left small">@HttpContext.Current.Session["email"].ToString()</p>
                                                 <p class="text-left">
-                                                    <a href="@Url.Action(null, "contas/Deslogar")" class="btn btn-primary btn-block btn-sm">Deslogar</a>
+                                                    <a href="@Url.Action(null, "vendas/index")" class="btn btn-primary btn-block btn-sm">Minhas compras</a>
                                                 </p>
-                                            </div>
+
+                                <p class="text-left">
+                                    <a href="@Url.Action(null, "contas/Deslogar")" class="btn btn-primary btn-block btn-sm">Deslogar</a>
+                                </p>
+</div>
                                         </div>
                                     </div>
                                 </li>
