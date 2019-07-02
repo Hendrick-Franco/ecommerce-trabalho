@@ -52,7 +52,7 @@ textarea {
 /* BASIC */
 
 html {
-    background-color: #56baed;
+    background-color: #fff;
 }
 
 body {
@@ -573,10 +573,11 @@ input[type=text], [type=password], [type=email] {
 }
 
 
-.Aparecer {
-  display: none;
-}
 
+.panel-body {
+    margin-top: 20px;
+    
+}
 .panel-title {display: inline;font-weight: bold;}
 .checkbox.pull-right { margin: 0; }
 .pl-ziro { padding-left: 0px; }
