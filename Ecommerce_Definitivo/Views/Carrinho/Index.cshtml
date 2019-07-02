@@ -73,12 +73,12 @@
                             </div>
                         </div>
                         <hr>
-                    <!-- END PRODUCT -->
-                    <!-- PRODUCT -->
+                        <!-- END PRODUCT -->
+                        <!-- PRODUCT -->
 
 
-                                        }
-                                    }
+                    }
+                }
             }
         </div>
         @using (Html.BeginForm("RealizarPagamento", "vendas", FormMethod.Post))
@@ -111,7 +111,7 @@
                     </div>
                 </div>
             </div>
-                            }
+
 
 
             <div id="div1" class="container" align="center">
@@ -129,7 +129,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="panel-body" >
+                            <div class="panel-body">
                                 <form role="form">
                                     <div class="form-group ">
                                         <label for="cardNumber">
@@ -138,7 +138,7 @@
                                         <div class="input-group ">
                                             <input type="text" class="form-control" id="cardNumber" name="NumeroCartao" placeholder="Numero do Cartão"
                                                    required autofocus />
-                                            <span class="input-group-btn"> <span class="glyphicon glyphicon-lock"  ></span></span>
+                                            <span class="input-group-btn"> <span class="glyphicon glyphicon-lock"></span></span>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -146,12 +146,12 @@
                                             <div class="form-group">
                                                 <label for="expityMonth">
                                                     VALIDADE
-                                                </label>
+                                                </label><br>
                                                 <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                    <input type="text" class="form-control" id="expityMonth" name="Mes" placeholder="MM" required />
+                                                    <input type="text" class="form-control" id="expityMonth" name="Mes" placeholder="MES" required />
                                                 </div>
                                                 <div class="col-xs-6 col-lg-6 pl-ziro">
-                                                    <input type="text" class="form-control" id="expityYear" name="Ano" placeholder="YY" required />
+                                                    <input type="text" class="form-control" id="expityYear" name="Ano" placeholder="ANO" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -167,8 +167,7 @@
                                 </form>
                             </div>
                         </div>
-                        </div>
                     </div>
-                    </div>
-
-                    
+                </div>
+            </div>
+        }

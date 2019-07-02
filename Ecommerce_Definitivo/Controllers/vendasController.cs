@@ -186,7 +186,7 @@ namespace Ecommerce_Definitivo.Controllers
             //Capturando a Sessão do Carrinho
             carrinho = (List<ItemCarrinho>)Session["Carrinho"];
 
-            //Realizando Validação do Carrinho / Conta.
+            //Realizando Validação da conta.
             if ((sessionId != null))
             {
                 venda.Conta = db.Conta.Find(Convert.ToInt32(sessionId));
@@ -198,7 +198,6 @@ namespace Ecommerce_Definitivo.Controllers
 
             //Preenchendo a Data da Venda  = "Agora".
             venda.dataVenda = DateTime.Now;
-
 
 
             //Percorrendo todos os itens do carrinho.
