@@ -3,6 +3,7 @@
     padding-bottom: 20px;
 }
 
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -570,3 +571,12 @@ input[type=text], [type=password], [type=email] {
     border-radius: 50%;
     background: white;
 }
+
+
+.Aparecer {
+  display: none;
+}
+
+.panel-title {display: inline;font-weight: bold;}
+.checkbox.pull-right { margin: 0; }
+.pl-ziro { padding-left: 0px; }

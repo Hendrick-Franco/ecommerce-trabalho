@@ -5,16 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <!------ Include the above in your HEAD tag ---------->
-
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
+<script type="text/javascript">
+    //Função para abrir o layout de cartão.
+    function show1() {
+        document.getElementById('div1').style.display = 'none';
+    }
+    function show2() {
+        document.getElementById('div1').style.display = 'block';
+    }
+</script>
 <div class="container">
     <div class="card shopping-cart">
         <div class="card-header bg-dark text-light">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             Meu Carrinho
-            <a href="@Url.Action( null, "produtoes/Index")" class="btn btn-outline-info btn-sm pull-right"> Continuar Comprando</a>
+            <a href="@Url.Action(null, "produtoes/Index")" class="btn btn-outline-info btn-sm pull-right"> Continuar Comprando</a>
             <div class="clearfix"></div>
         </div>
         <div class="card-body">
@@ -27,83 +34,135 @@
                 {
                     foreach (var itemCarrinho in (List<ItemCarrinho>)Session["Carrinho"])
                     {
-                    <div class="row">
-                        <div class="col-12 col-sm-12 col-md-2 text-center">
-                            @{
-                                var base64 = Convert.ToBase64String(itemCarrinho.produto.Imagem);
-                                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-                            }
-                            <img class="img-responsive" src='@imgSrc' alt="prewiew" width="120" height="80"/>
-                            
-                        </div>
-                        <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
-                            <h4 class="product-name"><strong>@itemCarrinho.produto.nome</strong></h4>
-                            <h4>
-                                <small>@itemCarrinho.produto.descricao</small>
-                            </h4>
-                        </div>
-                        <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong >R$ @itemCarrinho.produto.preco</strong></h6>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-2 text-center">
+                                @{
+                                    var base64 = Convert.ToBase64String(itemCarrinho.produto.Imagem);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img class="img-responsive" src='@imgSrc' alt="prewiew" width="120" height="80" />
+
                             </div>
-                            <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
-                                    
-                                    <input type="number" step="1" max="99" min="1" value="@itemCarrinho.quantidade" title="Qty" id="qty" class="qty"
-                                           size="4" >
-                                   
+                            <div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6">
+                                <h4 class="product-name"><strong>@itemCarrinho.produto.nome</strong></h4>
+                                <h4>
+                                    <small>@itemCarrinho.produto.descricao</small>
+                                </h4>
+                            </div>
+                            <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
+                                <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
+                                    <h6><strong>R$ @itemCarrinho.produto.preco</strong></h6>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4">
+                                    <div class="quantity">
+
+                                        <input type="number" step="1" max="99" min="1" value="@itemCarrinho.quantidade" title="Qty" id="qty" class="qty"
+                                               size="4">
+
+                                    </div>
+                                </div>
+                                <div class="col-2 col-sm-2 col-md-2 text-right">
+                                    <button type="button" class="btn btn-outline-danger btn-xs" href="">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                        @Html.ActionLink("Remover", "RemoverItemCarrinho", "Carrinho", new { id = itemCarrinho.produto.produtoId },
+ new { onclick = "return confirm ('Deseja realmente remover o produto?')" })
+
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-2 col-sm-2 col-md-2 text-right">
-                                <button type="button" class="btn btn-outline-danger btn-xs" href="">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                    @Html.ActionLink("Remover", "RemoverItemCarrinho", "Carrinho", new { id = itemCarrinho.produto.produtoId },
-                        new { onclick = "return confirm ('Deseja realmente remover o produto?')" })
-                                   
-                                </button>
-                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
                     <!-- END PRODUCT -->
                     <!-- PRODUCT -->
 
-                   
+
                                         }
                                     }
-                                }
+            }
         </div>
         @using (Html.BeginForm("RealizarPagamento", "vendas", FormMethod.Post))
         {
-        <div class="card-footer">           
-            <div class="pull-right" style="margin: 10px">
-                <br />
-                <label class="containerInput">
-                    Cartão
-                    <input id ="rbtPgBoleto" type="radio" name="radioFormaPagamento" value="Cartao">
-                    <span class="checkmark"></span>
-                </label>
-                <label class="containerInput">
-                    Boleto
-                    <input id="rbtrbtPgCartao" type="radio" name="radioFormaPagamento" value="Boleto">
-                    <span class="checkmark"></span>
-                </label>
-                <button type="submit" class="btn btn-success pull-right">Pagar</button>
-                <div class="pull-right" style="margin: 5px">
-                    @{
-                        List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
-                        var total = "0";
+            <div class="card-footer">
+                <div class="pull-right" style="margin: 10px">
+                    <br />
+                    <label class="containerInput">
+                        Cartão
+                        <input id="rbtPgBoleto" type="radio" name="radioFormaPagamento" value="Cartao" onclick="show2();">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="containerInput">
+                        Boleto
+                        <input id="rbtrbtPgCartao" type="radio" name="radioFormaPagamento" value="Boleto" onclick="show1();">
+                        <span class="checkmark"></span>
+                    </label>
+                    <button type="submit" class="btn btn-success pull-right">Pagar</button>
+                    <div class="pull-right" style="margin: 5px">
+                        @{
+                            List<ItemCarrinho> temp = (List<ItemCarrinho>)Session["Carrinho"];
+                            var total = "0";
 
-                        if (Session["Carrinho"] != null)
-                        {
-                            total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                            if (Session["Carrinho"] != null)
+                            {
+                                total = String.Format("{0:N0}", temp.Sum(x => x.quantidade * x.produto.preco));
+                            }
                         }
-                    }
-                    R$ @total
+                        R$ @total
+                    </div>
                 </div>
             </div>
-        </div>
-         }
-    </div>
-</div>
-
+                            }
+            <div id="div1" class="Aparecer">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    Payment Details
+                                </h3>
+                                <div class="checkbox pull-right">
+                                    <label>
+                                        <input type="checkbox" />
+                                        Remember
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="cardNumber">
+                                            NUMERO DO CARTÂO
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="cardNumber" name="NumeroCartao" placeholder="Valid Card Number"
+                                                   required autofocus />
+                                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7 col-md-7">
+                                            <div class="form-group">
+                                                <label for="expityMonth">
+                                                    VALIDADE
+                                                </label>
+                                                <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                    <input type="text" class="form-control" id="expityMonth" name="Mes" placeholder="MM" required />
+                                                </div>
+                                                <div class="col-xs-6 col-lg-6 pl-ziro">
+                                                    <input type="text" class="form-control" id="expityYear" name="Ano" placeholder="YY" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-5 col-md-5 pull-right">
+                                            <div class="form-group">
+                                                <label for="cvCode">
+                                                    CODIGO DE SEGUNÇA
+                                                </label>
+                                                <input type="password" class="form-control" id="cvCode" name="CodigoSeg" placeholder="CV" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                    }
+                </div>
